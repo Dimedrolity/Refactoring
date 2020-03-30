@@ -1,0 +1,10 @@
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\bin\Debug\Refactoring.exe
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\bin\Debug\Refactoring.pdb
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\bin\Debug\nunit.framework.dll
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\bin\Debug\nunit.framework.pdb
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\bin\Debug\nunit.framework.xml
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\obj\Debug\Refactoring.csprojAssemblyReference.cache
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\obj\Debug\Refactoring.csproj.CoreCompileInputs.cache
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\obj\Debug\Refactoring.csproj.CopyComplete
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\obj\Debug\Refactoring.exe
+D:\Учёба\Тестовые на стажировку C# Контур\Рефакторинг\Refactoring\obj\Debug\Refactoring.pdb
