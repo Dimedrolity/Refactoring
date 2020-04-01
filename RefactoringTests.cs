@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 
 namespace Refactoring
 {
@@ -335,7 +337,7 @@ namespace Refactoring
                 "Contrast 20"
             });
         }
-        
+
         [Test]
         public void MuteVolumeAndUpVolume()
         {
@@ -353,7 +355,7 @@ namespace Refactoring
                 "Contrast 20"
             });
         }
-        
+
         [Test]
         public void MuteVolumeAndDownVolume()
         {
@@ -371,43 +373,35 @@ namespace Refactoring
                 "Contrast 20"
             });
         }
-        
+
         [Test]
         public void UpVolumeManyTimes()
         {
-            TestRemoteController(new[]
-            {
-                "Tv On",
-                "Volume Up", "Volume Up", "Volume Up", 
-                "Volume Up", "Volume Up", "Volume Up", 
-                "Volume Up", "Volume Up", "Volume Up",
-            }, new[]
-            {
-                "Options:",
-                "IsOnline True",
-                "Volume 100",
-                "Brightness 20",
-                "Contrast 20"
-            });
+            TestRemoteController(
+                new[] {"Tv On"}.Concat(Enumerable.Repeat("Volume Up", 15)).ToArray(),
+                new[]
+                {
+                    "Options:",
+                    "IsOnline True",
+                    "Volume 100",
+                    "Brightness 20",
+                    "Contrast 20"
+                });
         }
-        
+
         [Test]
         public void DownVolumeManyTimes()
         {
-            TestRemoteController(new[]
-            {
-                "Tv On",
-                "Volume Down", "Volume Down", "Volume Down", 
-                "Volume Down", "Volume Down", "Volume Down", 
-                "Volume Down", "Volume Down", "Volume Down",
-            }, new[]
-            {
-                "Options:",
-                "IsOnline True",
-                "Volume 0",
-                "Brightness 20",
-                "Contrast 20"
-            });
+            TestRemoteController(
+                new[] {"Tv On"}.Concat(Enumerable.Repeat("Volume Down", 15)).ToArray(),
+                new[]
+                {
+                    "Options:",
+                    "IsOnline True",
+                    "Volume 0",
+                    "Brightness 20",
+                    "Contrast 20"
+                });
         }
     }
 }
