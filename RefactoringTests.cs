@@ -5,79 +5,111 @@ namespace Refactoring
     [TestFixture]
     public class RefactoringTests
     {
-        [Test]
-        public void ShowOptions_DefaultValues()
+        void TestRemoteController(string[] commands, string[] expectedOutput)
         {
             var rc = new RemoteController();
-            var optionsShowResult = rc.Call("Options show");
-            CollectionAssert.AreEquivalent(
-                new[] {"Options:", "IsOnline False", "Volume 30", "Brightness 20", "Contrast 20"},
-                optionsShowResult.Split('\n'));
+
+            foreach (var command in commands)
+            {
+                rc.Call(command);
+            }
+
+            var optionsShowParts = rc.Call("Options show").Split('\n');
+
+            Assert.AreEqual(expectedOutput.Length, optionsShowParts.Length);
+            Assert.AreEqual(expectedOutput, optionsShowParts);
         }
+
+        [Test]
+        public void ShowDefaultOptions()
+        {
+            TestRemoteController(new string[0],
+                new[]
+                {
+                    "Options:",
+                    "IsOnline False",
+                    "Volume 30",
+                    "Brightness 20",
+                    "Contrast 20"
+                });
+        }
+        
+        
 
         [Test]
         public void BrightnessUp()
         {
-            var rc = new RemoteController();
-            rc.Call("Tv On");
-            rc.Call("Options change brightness up");
-            var optionsShowResult = rc.Call("Options show");
-            CollectionAssert.AreEquivalent(
-                new[] {"Options:", "IsOnline True", "Volume 30", "Brightness 30", "Contrast 20"},
-                optionsShowResult.Split('\n'));
+            TestRemoteController(new[]
+                {
+                    "Tv On",
+                    "Options change brightness up"
+                },
+                new[]
+                {
+                    "Options:",
+                    "IsOnline True",
+                    "Volume 30",
+                    "Brightness 30",
+                    "Contrast 20"
+                });
         }
 
         [Test]
-        public void SetDefaultAfterChange()
+        public void SetOptionsDefaultAfterChange()
         {
-            var rc = new RemoteController();
+            TestRemoteController(new[]
+                {
+                    "Tv On",
+                    "Options change brightness up",
+                    "Options change contrast up",
+                    "Volume up",
 
-            rc.Call("Tv On");
-            rc.Call("Options change brightness up");
-            rc.Call("Options change contrast up");
-            rc.Call("Volume up");
-
-            rc.Call("Options set default");
-            var defaultOptions = rc.Call("Options show");
-
-            CollectionAssert.AreEquivalent(
-                new[] {"Options:", "IsOnline True", "Volume 30", "Brightness 20", "Contrast 20"},
-                defaultOptions.Split('\n'));
+                    "Options set default"
+                },
+                new[]
+                {
+                    "Options:",
+                    "IsOnline True",
+                    "Volume 30",
+                    "Brightness 20",
+                    "Contrast 20"
+                });
         }
 
         [Test]
         public void MuteVolume()
         {
-            var rc = new RemoteController();
-            rc.Call("Tv On");
-
-            rc.Call("Volume Mute");
-            var optionsWithMutedVolume = rc.Call("Options show");
-
-            CollectionAssert.AreEquivalent(
-                new[] {"Options:", "IsOnline True", "Volume 0", "Brightness 20", "Contrast 20"},
-                optionsWithMutedVolume.Split('\n'));
+            TestRemoteController(new[]
+            {
+                "Tv On",
+                "Volume Mute"
+            }, new[]
+            {
+                "Options:",
+                "IsOnline True", 
+                "Volume 0", 
+                "Brightness 20", 
+                "Contrast 20"
+            });
         }
 
         [Test]
         public void MuteAndUnmuteVolume()
         {
-            var rc = new RemoteController();
-            rc.Call("Tv On");
+            TestRemoteController(new[]
+            {
+                "Tv On",
+                "Volume Mute",
+                "Volume Unmute"
 
-            rc.Call("Volume Mute");
-            var optionsWithMutedVolume = rc.Call("Options show");
-
-            CollectionAssert.AreEquivalent(
-                new[] {"Options:", "IsOnline True", "Volume 0", "Brightness 20", "Contrast 20"},
-                optionsWithMutedVolume.Split('\n'));
-
-            rc.Call("Volume Unmute");
-            var defaultOptions = rc.Call("Options show");
-
-            CollectionAssert.AreEquivalent(
-                new[] {"Options:", "IsOnline True", "Volume 30", "Brightness 20", "Contrast 20"},
-                defaultOptions.Split('\n'));
+            }, new[]
+            {
+                "Options:",
+                "IsOnline True", 
+                "Volume 30", 
+                "Brightness 20", 
+                "Contrast 20"
+            });
         }
     }
 }
