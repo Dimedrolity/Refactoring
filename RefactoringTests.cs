@@ -378,9 +378,9 @@ namespace Refactoring
             TestRemoteController(new[]
             {
                 "Tv On",
-                "Volume Up", "Volume Up", "Volume Up", "Volume Up", 
-                "Volume Up", "Volume Up", "Volume Up", "Volume Up", 
-                "Volume Up", "Volume Up", "Volume Up", "Volume Up",
+                "Volume Up", "Volume Up", "Volume Up", 
+                "Volume Up", "Volume Up", "Volume Up", 
+                "Volume Up", "Volume Up", "Volume Up",
             }, new[]
             {
                 "Options:",
